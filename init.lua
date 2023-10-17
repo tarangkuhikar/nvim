@@ -47,11 +47,27 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_python_provider = 0
-vim.g.loaded_python3_provider = 0
+vim.opt.shell = 'pwsh.exe'
+vim.opt.shellcmdflag = '-NoLogo -NoProfile -NonInteractive -ExecutionPolicy  RemoteSigned -Command '
+vim.opt.shellxquote = ''
+vim.opt.shellquote = ''
+vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s'
+vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s'
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
-vim.opt.rtp:prepend(vim.fn.stdpath 'data' .. '/lazy/lazy.nvim')
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
