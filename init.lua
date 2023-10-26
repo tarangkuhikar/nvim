@@ -47,12 +47,19 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_python_provider = 0
-vim.opt.shell = 'pwsh.exe'
-vim.opt.shellcmdflag = '-NoLogo -NoProfile -NonInteractive -ExecutionPolicy  RemoteSigned -Command '
-vim.opt.shellxquote = ''
-vim.opt.shellquote = ''
-vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s'
-vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s'
+vim.g.loaded_python3_provider = 0
+vim.g.clipboard = {
+  name = 'wslclipboard',
+  copy = {
+    ['+'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -i --crlf',
+    ['*'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -i --crlf',
+  },
+  paste = {
+    ['+'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -o --lf',
+    ['*'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -o --lf',
+  },
+  cache_enabled = 1,
+}
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
