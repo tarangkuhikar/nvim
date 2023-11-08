@@ -44,6 +44,23 @@ P.S. You can delete this when you're done too. It's your config now :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.clipboard = {
+  name = 'wslclipboard',
+  copy = {
+    ['+'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -i --crlf',
+    ['*'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -i --crlf',
+  },
+  paste = {
+    ['+'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -o --lf',
+    ['*'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -o --lf',
+  },
+  cache_enabled = 1,
+}
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
