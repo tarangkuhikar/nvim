@@ -49,18 +49,18 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
--- vim.g.clipboard = {
---   name = 'wslclipboard',
---   copy = {
---     ['+'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -i --crlf',
---     ['*'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -i --crlf',
---   },
---   paste = {
---     ['+'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -o --lf',
---     ['*'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -o --lf',
---   },
---   cache_enabled = 1,
--- }
+vim.g.clipboard = {
+  name = 'wslclipboard',
+  copy = {
+    ['+'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -i --crlf',
+    ['*'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -i --crlf',
+  },
+  paste = {
+    ['+'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -o --lf',
+    ['*'] = '/mnt/c/Users/OM/scoop/apps/neovim/current/bin/win32yank.exe -o --lf',
+  },
+  cache_enabled = 1,
+}
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -105,7 +105,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -302,6 +302,7 @@ vim.o.termguicolors = true
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('t', 'jk', [[<C-\><C-n>]])
+vim.opt.cursorline = true
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -328,6 +329,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    wrap_results = true,
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -590,6 +592,9 @@ cmp.setup {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
+  },
+  completion = {
+    completeopt = 'menu,menuone,noinsert'
   },
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
