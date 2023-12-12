@@ -306,6 +306,6 @@ return {
       }
     })
 
-    vim.cmd([[nnoremap \ :Neotree toggle<cr>]])
+    vim.keymap.set("n", "\\", ":Neotree toggle<cr>")
   end
 }
