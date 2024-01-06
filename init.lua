@@ -49,12 +49,7 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
-vim.opt.shell = 'pwsh.exe'
-vim.opt.shellcmdflag = '-NoLogo -NoProfile -NonInteractive -ExecutionPolicy  RemoteSigned -Command '
-vim.opt.shellxquote = ''
-vim.opt.shellquote = ''
-vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s'
-vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s'
+vim.opt.shell = 'zsh'
 -- Install package manager
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
@@ -251,8 +246,10 @@ require('lazy').setup({
         'nvim-telescope/telescope-fzf-native.nvim',
         -- NOTE: If you are having trouble with this installation,
         --       refer to the README for telescope-fzf-native for more instructions.
-        build =
-        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+        build = 'make',
+        cond = function()
+          return vim.fn.executable 'make' == 1
+        end,
       },
     },
   },

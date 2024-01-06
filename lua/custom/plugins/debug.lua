@@ -38,11 +38,11 @@ return {
 
     dap.configurations.rust = {
       {
-        name = 'Rust Debug',
+        name = 'Launch file',
         type = 'codelldb',
         request = 'launch',
         program = function()
-          return '/home/tarang/Rust/advent_of_code/target/debug/advent_of_code'
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
         cwd = '${workspaceFolder}',
         stopOnEntry = false,
@@ -51,10 +51,12 @@ return {
       },
     }
 
+    dap.configurations.c = dap.configurations.rust
+    dap.configurations.cpp = dap.configurations.rust
     -- require('mason-nvim-dap').setup {
     --   -- Makes a best effort to setup the various debuggers with
     --   -- reasonable debug configurations
-    --   automatic_setup = false,
+    --   automatic_setup = true,
     --   automatic_installation = false,
     --   -- You can provide additional configuration to the handlers,
     --   -- see mason-nvim-dap README for more information
