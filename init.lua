@@ -49,7 +49,12 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
-vim.opt.shell = 'zsh'
+vim.opt.shell = 'pwsh.exe'
+vim.opt.shellcmdflag = '-NoLogo -NoProfile -NonInteractive -ExecutionPolicy  RemoteSigned -Command '
+vim.opt.shellxquote = ''
+vim.opt.shellquote = ''
+vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s'
+vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s'
 -- Install package manager
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
@@ -82,7 +87,6 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-  'github/copilot.vim',
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -290,13 +294,6 @@ require('lazy').setup({
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
-
-
-vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
-  expr = true,
-  replace_keycodes = false
-})
-vim.g.copilot_no_tab_map = true
 
 -- Set highlight on search
 vim.o.hlsearch = false
