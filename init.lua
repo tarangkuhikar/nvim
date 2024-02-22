@@ -84,9 +84,10 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-
+  'shumphrey/fugitive-gitlab.vim',
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -207,12 +208,20 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Gruvbox
-    'sainnhe/gruvbox-material',
+    'folke/tokyonight.nvim',
     priority = 1000,
+    lazy = false,
     config = function()
-      vim.cmd.colorscheme 'gruvbox-material'
-    end
+      require("tokyonight").setup({
+        style = 'night',
+        transparent = true,
+        styles = {
+          floats = "transparent",
+          sidebars = "transparent"
+        },
+      })
+      vim.cmd.colorscheme 'tokyonight'
+    end,
   },
 
   {
@@ -223,7 +232,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'gruvbox-material',
+        theme = 'tokyonight',
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
       },
@@ -295,6 +304,7 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
+vim.g.fugitive_gitlab_domains = { 'ssh://git.devstree.com', 'https://git.devstree.com' }
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -539,7 +549,9 @@ local on_attach = function(_, bufnr)
   end
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<leader>ca', function()
+    vim.lsp.buf.code_action { context = { only = { 'quickfix', 'refactor', 'source' } } }
+  end, '[C]ode [A]ction')
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -610,7 +622,7 @@ local servers = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
       -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-      diagnostics = { disable = { 'missing-fields' } },
+      diagnostics = { disable = { 'missing-fields' }, globals = { 'vim' } },
     },
   },
 }

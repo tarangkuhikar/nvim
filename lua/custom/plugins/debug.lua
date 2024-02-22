@@ -23,17 +23,19 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
 
+    local mason_registry = require("mason-registry")
+    local codelldb_root = mason_registry.get_package("codelldb"):get_install_path() .. "/extension/"
+    local codelldb_path = codelldb_root .. "adapter/codelldb.exe"
+    local liblldb_path = codelldb_root .. "lldb/lib/liblldb.so"
     dap.adapters.codelldb = {
-      type = 'server',
+      type = "server",
       port = "${port}",
+      host = "127.0.0.1",
       executable = {
-        -- CHANGE THIS to your path!
-        command = '/home/tarang/.local/share/nvim/mason/bin/codelldb',
-        args = { "--port", "${port}" },
-
-        -- On windows you may have to uncomment this:
-        -- detached = false,
-      }
+        command = codelldb_path,
+        args = { "--liblldb", liblldb_path, "--port", "${port}" },
+      },
+      detached = false,
     }
 
     dap.configurations.rust = {
