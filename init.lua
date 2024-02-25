@@ -49,12 +49,17 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
-vim.opt.shell = 'pwsh.exe'
-vim.opt.shellcmdflag = '-NoLogo -NoProfile -NonInteractive -ExecutionPolicy  RemoteSigned -Command '
-vim.opt.shellxquote = ''
-vim.opt.shellquote = ''
-vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s'
-vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s'
+if (vim.fn.has('win32'))
+then
+  vim.opt.shell = 'pwsh.exe'
+  vim.opt.shellcmdflag = '-NoLogo -NoProfile -NonInteractive -ExecutionPolicy  RemoteSigned -Command '
+  vim.opt.shellxquote = ''
+  vim.opt.shellquote = ''
+  vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s'
+  vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s'
+else
+  vim.opt.shell = 'zsh'
+end
 -- Install package manager
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
