@@ -653,6 +653,15 @@ require('lazy').setup({
             },
           },
         },
+        omnisharp = {
+          capabilities = {
+            workspace = {
+              didChangeWatchedFiles = {
+                dynamicRegistration = true,
+              },
+            },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
