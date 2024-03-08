@@ -821,7 +821,6 @@ require('lazy').setup({
         style = 'night',
         transparent = true,
         styles = {
-          floats = 'transparent',
           sidebars = 'transparent',
         },
       }
