@@ -310,6 +310,8 @@ return {
       },
     }
 
-    vim.keymap.set('n', '\\', ':Neotree toggle<cr>')
+    vim.keymap.set('n', '\\', function()
+      require('neo-tree.command').execute { toggle = true, reveal = true }
+    end)
   end,
 }

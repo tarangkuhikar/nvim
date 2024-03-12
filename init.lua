@@ -434,6 +434,9 @@ require('lazy').setup({
         --   },
         -- },
         -- pickers = {}
+        defaults = {
+          path_display = { truncate = 3 },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -708,7 +711,6 @@ require('lazy').setup({
       },
       formatters_by_ft = {
         lua = { 'stylua' },
-        csharp = { 'csharpier' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
