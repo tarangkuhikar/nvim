@@ -605,6 +605,12 @@ require('lazy').setup({
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
+
+          -- Disable LSP Highlighting
+          if client then
+            client.server_capabilities.semanticTokensProvider = nil
+          end
+
         end,
       })
 
