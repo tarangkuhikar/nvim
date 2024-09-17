@@ -479,7 +479,7 @@ require('lazy').setup({
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
+      'Hoffs/omnisharp-extended-lsp.nvim',
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
@@ -611,6 +611,26 @@ require('lazy').setup({
             client.server_capabilities.semanticTokensProvider = nil
           end
 
+          -- custom omnisharp handlers for extended definition , references , etc.
+          if client and client.name == 'omnisharp' then
+            map('gd', require('omnisharp_extended').telescope_lsp_definition, '[G]oto [D]efinition')
+
+            map('gr', require('omnisharp_extended').telescope_lsp_references, '[G]oto [R]eferences')
+
+            map('gI', require('omnisharp_extended').telescope_lsp_implementation, '[G]oto [I]mplementation')
+          else
+            -- Jump to the definition of the word under your cursor.
+            --  This is where a variable was first declared, or where a function is defined, etc.
+            --  To jump back, press <C-t>.
+            map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+
+            -- Find references for the word under your cursor.
+            map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+
+            -- Jump to the implementation of the word under your cursor.
+            --  Useful when your language has ways of declaring types without an actual implementation.
+            map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          end
         end,
       })
 
