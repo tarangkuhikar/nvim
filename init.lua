@@ -1022,5 +1022,13 @@ require('lazy').setup({
   },
 })
 
+vim.filetype.add {
+  pattern = {
+    ['.*/waybar/config'] = 'jsonc',
+    ['.*/mako/config'] = 'dosini',
+    ['.*/kitty/*.conf'] = 'bash',
+    ['.*/hypr/.*%.conf'] = 'hyprlang',
+  },
+}
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
