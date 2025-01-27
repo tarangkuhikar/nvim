@@ -15,6 +15,12 @@ return {
   },
   opts = {
     filesystem = {
+      filtered_items = {
+        visible = false, -- when true, they will just be displayed differently than normal items
+        hide_by_pattern = { -- uses glob style patterns
+          '*.meta',
+        },
+      },
       window = {
         mappings = {
           ['\\'] = 'close_window',
