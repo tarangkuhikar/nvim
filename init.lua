@@ -118,7 +118,7 @@ vim.g.have_nerd_font = true
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -650,23 +650,11 @@ require('lazy').setup({
 
           -- custom omnisharp handlers for extended definition , references , etc.
           if client and client.name == 'omnisharp' then
-            map('gd', require('omnisharp_extended').telescope_lsp_definition, '[G]oto [D]efinition')
+            map('grr', require('omnisharp_extended').telescope_lsp_references, '[G]oto [R]eferences')
 
-            map('gr', require('omnisharp_extended').telescope_lsp_references, '[G]oto [R]eferences')
+            map('gri', require('omnisharp_extended').telescope_lsp_implementation, '[G]oto [I]mplementation')
 
-            map('gI', require('omnisharp_extended').telescope_lsp_implementation, '[G]oto [I]mplementation')
-          else
-            -- Jump to the definition of the word under your cursor.
-            --  This is where a variable was first declared, or where a function is defined, etc.
-            --  To jump back, press <C-t>.
-            map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-
-            -- Find references for the word under your cursor.
-            map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-
-            -- Jump to the implementation of the word under your cursor.
-            --  Useful when your language has ways of declaring types without an actual implementation.
-            map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+            map('grd', require('omnisharp_extended').telescope_lsp_definition, '[G]oto [D]efinition')
           end
         end,
       })
@@ -914,6 +902,7 @@ require('lazy').setup({
         default = { 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          snippets = { score_offset = -10 },
         },
       },
 
